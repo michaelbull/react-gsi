@@ -1,0 +1,90 @@
+{
+  "name": "react-sign-in-with-google",
+  "version": "0.0.1",
+  "description": "React Sign in with Google",
+  "homepage": "https://github.com/michaelbull/react-sign-in-with-google#readme",
+  "type": "module",
+  "license": "ISC",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    "types": "./dist/index.d.ts",
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.cjs"
+  },
+  "author": {
+    "name": "Michael Bull",
+    "url": "https://www.michael-bull.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/michaelbull/react-sign-in-with-google.git"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "component",
+    "hook",
+    "sign",
+    "in",
+    "login",
+    "with",
+    "google",
+    "gsi"
+  ],
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "run-p clean:*",
+    "clean:ts": "rimraf dist",
+    "clean:storybook": "rimraf storybook-static",
+    "lint": "eslint --max-warnings=0 src/ stories/",
+    "lint:fix": "eslint --fix src/ stories/",
+    "start": "sb dev -p 6006",
+    "build": "run-p build:*",
+    "prebuild:ts": "npm run clean:ts",
+    "build:ts": "rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript",
+    "prebuild:storybook": "npm run clean:storybook",
+    "build:storybook": "sb build",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "google-auth-library": "8.9.0"
+  },
+  "peerDependencies": {
+    "react": ">= 17",
+    "react-dom": ">= 17"
+  },
+  "devDependencies": {
+    "@rollup/plugin-terser": "0.4.3",
+    "@rollup/plugin-typescript": "11.1.2",
+    "@storybook/addon-actions": "7.0.24",
+    "@storybook/addon-essentials": "7.0.24",
+    "@storybook/addon-interactions": "7.0.24",
+    "@storybook/addon-links": "7.0.24",
+    "@storybook/cli": "7.0.24",
+    "@storybook/react": "7.0.24",
+    "@storybook/react-vite": "7.0.24",
+    "@testing-library/react": "14.0.0",
+    "@types/gsi": "0.0.0",
+    "@types/react": "18.2.14",
+    "@typescript-eslint/eslint-plugin": "5.60.1",
+    "@typescript-eslint/parser": "5.60.1",
+    "eslint": "8.44.0",
+    "eslint-plugin-react": "7.32.2",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "jsdom": "22.1.0",
+    "npm-run-all": "4.1.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "rimraf": "5.0.1",
+    "rollup": "3.26.0",
+    "rollup-plugin-delete": "2.0.0",
+    "rollup-plugin-dts": "5.3.0",
+    "typescript": "5.1.6",
+    "vitest": "0.32.2"
+  }
+}
