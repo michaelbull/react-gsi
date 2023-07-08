@@ -24,15 +24,15 @@ React bindings for the [Sign in With Google for Web][gsi-overview] API.
 ## Installation
 
 ```shell
-npm install --save react-gsi
+npm install --save react-gsi @types/gsi
 ```
 
 ## Usage
 
-To enable Sign In With Google on your website, you first need to [set up your
+To enable _Sign In With Google_ on your website, you first need to [set up your
 Google API client ID][gsi-overview].
 
-You must have a client ID to configure Sign In With Google and to verify ID
+You must have a client ID to configure _Sign In With Google_ and to verify ID
 tokens on your backend.
 
 A client ID looks like the following example:
@@ -175,7 +175,7 @@ function Page() {
 <details>
 <summary><strong>Details</strong></summary>
 
-The `<GsiButton>` will render the "Sign in with Google" button.
+The `<GsiButton>` will render the _Sign in with Google_ button.
 
 ```tsx
 const buttonConfiguration: GsiButtonConfiguration = {

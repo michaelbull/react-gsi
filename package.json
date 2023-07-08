@@ -1,7 +1,7 @@
 {
   "name": "react-gsi",
   "version": "0.0.1",
-  "description": "React Sign in with Google",
+  "description": "React bindings for the 'Sign in With Google for Web' API",
   "homepage": "https://github.com/michaelbull/react-gsi#readme",
   "type": "module",
   "license": "ISC",
