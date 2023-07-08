@@ -48,7 +48,8 @@ import {
 } from 'react-gsi';
 
 const idConfiguration: IdConfiguration = {
-    client_id: '1234567890-abc123def456.apps.googleusercontent.com'
+    client_id: '1234567890-abc123def456.apps.googleusercontent.com',
+    auto_select: true // automatically sign in, see: https://developers.google.com/identity/gsi/web/guides/automatic-sign-in-sign-out
 }
 
 const buttonConfiguration: GsiButtonConfiguration = {
@@ -148,8 +149,7 @@ Children may access the token in the current context by using the
 
 ```tsx
 const idConfiguration: IdConfiguration = {
-    client_id: '1234567890-abc123def456.apps.googleusercontent.com',
-    auto_select: true // automatically sign in, see: https://developers.google.com/identity/gsi/web/guides/automatic-sign-in-sign-out
+    client_id: '1234567890-abc123def456.apps.googleusercontent.com'
 }
 
 function App() {
