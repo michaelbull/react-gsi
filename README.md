@@ -43,25 +43,24 @@ import {
     GsiButton,
     IdTokenProvider,
     SignInWithGoogle,
-    useIdToken
+    useIdToken,
+    useOneTap
 } from 'react-sign-in-with-google';
 
+const idConfiguration: IdConfiguration = {
+    client_id: '1234567890-abc123def456.apps.googleusercontent.com'
+}
+
+const buttonConfiguration: GsiButtonConfiguration = {
+    type: 'standard',
+    theme: 'outline',
+    size: 'large'
+}
+
 export function App() {
-    const idConfiguration: IdConfiguration = {
-        client_id: '1234567890-abc123def456.apps.googleusercontent.com'
-    }
-
-    const buttonConfiguration: GsiButtonConfiguration = {
-        type: 'standard',
-        theme: 'outline',
-        size: 'large'
-    }
-
     return (
         <SignInWithGoogle>
             <IdTokenProvider configuration={configuration}>
-                <GsiButton configuration={buttonConfiguration}/>
-
                 <Page/>
             </IdTokenProvider>
         </SignInWithGoogle>
@@ -69,10 +68,20 @@ export function App() {
 }
 
 function Page() {
-    const token: CredentialResponse | null = useIdToken();
+    const token = useIdToken();
+    const signedOut = token === null;
 
-    if (token === null) {
-        return <h1>Logged Out</h1>
+    useOneTap({
+        show: signedOut
+    })
+
+    if (signedOut) {
+        return (
+            <>
+                <h1>Logged Out</h1>
+                <GsiButton configuration={buttonConfiguration}/>
+            </>
+        );
     } else {
         const { select_by, credential } = token;
 

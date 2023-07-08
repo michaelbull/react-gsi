@@ -18,9 +18,3 @@ export function useRenderButton(props: UseRenderButtonProps) {
         onRender?.();
     }, [parent, configuration, onRender]);
 }
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-declare namespace google.accounts.id {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    function renderButton(parent: HTMLElement, options: GsiButtonConfiguration): void;
-}

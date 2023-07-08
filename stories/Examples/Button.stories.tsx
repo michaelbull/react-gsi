@@ -7,11 +7,14 @@ import {
     GsiButton,
     GsiButtonProps,
     IdTokenProvider,
-    ScriptErrorStatus,
     SignInWithGoogle,
     useIdToken
 } from '../../src';
 import { TokenDetails } from './TokenDetails';
+import {
+    ErrorFallback,
+    LoadingFallback
+} from './Fallback';
 
 interface StoryProps {
     readonly clientId: IdConfiguration['client_id'];
@@ -32,92 +35,144 @@ const meta: Meta<StoryProps> = {
         layout: 'centered'
     },
     args: {
-        clientId: ''
+        clientId: '877333830425-io63kvpe9kq17atc9p5bvuc0ao2egdm4.apps.googleusercontent.com',
+        buttonType: 'standard',
+        buttonTheme: 'outline',
+        buttonSize: 'large',
+        buttonText: 'signin_with',
+        buttonShape: 'rectangular',
+        buttonLogoAlignment: 'left',
+        buttonWidth: undefined,
+        buttonLocale: undefined
     },
     argTypes: {
         /* https://developers.google.com/identity/gsi/web/guides/get-google-api-clientid#get_your_google_api_client_id */
         clientId: {
             name: 'Google API client ID',
-            description: 'You must have a client ID to configure Sign In With Google and to verify ID tokens on your backend. A client ID looks like the following example: 1234567890-abc123def456.apps.googleusercontent.com'
+            description: 'You must have a client ID to configure Sign In With Google and to verify ID tokens on your backend. A client ID looks like the following example: `1234567890-abc123def456.apps.googleusercontent.com`'
         },
         /* https://developers.google.com/identity/gsi/web/reference/js-reference#type */
         buttonType: {
-            name: 'Button Type',
-            description: 'The button type. The default value is standard.',
+            name: 'Type',
             control: 'select',
             options: [
                 'standard',
                 'icon'
-            ]
+            ],
+            table: {
+                category: 'Button',
+                defaultValue: { summary: 'standard' },
+                type: { summary: `GsiButtonConfiguration['type']` }
+            }
         },
         /* https://developers.google.com/identity/gsi/web/reference/js-reference#theme */
         buttonTheme: {
-            name: 'Button Theme',
-            description: 'The button theme. The default value is outline.',
+            name: 'Theme',
             control: 'select',
+            defaultValue: 'outline',
             options: [
                 'outline',
                 'filled_blue',
                 'filled_black'
-            ]
+            ],
+            table: {
+                category: 'Button',
+                defaultValue: { summary: 'outline' },
+                type: { summary: `GsiButtonConfiguration['theme']` }
+            }
         },
         /* https://developers.google.com/identity/gsi/web/reference/js-reference#size */
         buttonSize: {
-            name: 'Button Size',
-            description: 'The button size. The default value is large.',
+            name: 'Size',
             control: 'select',
+            defaultValue: 'large',
             options: [
                 'large',
                 'medium',
                 'small'
-            ]
+            ],
+            table: {
+                category: 'Button',
+                defaultValue: { summary: 'large' },
+                type: { summary: `GsiButtonConfiguration['size']` }
+            }
         },
         /* https://developers.google.com/identity/gsi/web/reference/js-reference#text */
         buttonText: {
-            name: 'Button Text',
-            description: 'The button text. The default value is signin_with. There are no visual differences for the text of icon buttons that have different text attributes. The only exception is when the text is read for screen accessibility.',
+            name: 'Text',
+            description: 'There are no visual differences for the text of icon buttons that have different text attributes. The only exception is when the text is read for screen accessibility.',
             control: 'select',
+            defaultValue: 'signin_with',
             options: [
                 'signin_with',
                 'signup_with',
                 'continue_with'
-            ]
+            ],
+            table: {
+                category: 'Button',
+                defaultValue: { summary: 'signin_with' },
+                type: { summary: `GsiButtonConfiguration['text']` }
+            }
         },
         /* https://developers.google.com/identity/gsi/web/reference/js-reference#shape */
         buttonShape: {
-            name: 'Button Shape',
-            description: 'The button shape. The default value is rectangular.',
+            name: 'Shape',
             control: 'select',
+            defaultValue: 'rectangular',
             options: [
                 'rectangular',
                 'pill',
                 'circle',
                 'square'
-            ]
+            ],
+            table: {
+                category: 'Button',
+                defaultValue: { summary: 'rectangular' },
+                type: { summary: `GsiButtonConfiguration['shape']` }
+            }
         },
+        /* https://developers.google.com/identity/gsi/web/reference/js-reference#logo_alignment */
         buttonLogoAlignment: {
-            name: 'Button Logo Alignment',
-            description: 'The alignment of the Google logo. The default value is left. This attribute only applies to the standard button type.',
+            name: 'Logo Alignment',
+            description: 'The alignment of the Google logo. This attribute only applies to the standard button type.',
             control: 'select',
+            defaultValue: 'left',
             options: [
                 'left',
                 'center'
-            ]
+            ],
+            table: {
+                category: 'Button',
+                defaultValue: { summary: 'left' },
+                type: { summary: `GsiButtonConfiguration['logo_alignment']` }
+            }
         },
         /* https://developers.google.com/identity/gsi/web/reference/js-reference#width */
         buttonWidth: {
-            name: 'Button Width',
+            name: 'Width',
             description: 'The minimum button width, in pixels. The maximum width is 400 pixels.',
-            control: 'number'
+            control: {
+                type: 'number',
+                min: 0,
+                max: 400
+            },
+            table: {
+                category: 'Button',
+                type: { summary: `GsiButtonConfiguration['width']` }
+            }
         },
         /* https://developers.google.com/identity/gsi/web/reference/js-reference#locale */
         buttonLocale: {
-            name: 'Button Locale',
+            name: 'Locale',
             description: 'Optional. Display button text using the specified locale, otherwise default to the users Google Account or browser settings.',
-            control: 'text'
+            control: 'text',
+            table: {
+                category: 'Button',
+                type: { summary: `GsiButtonConfiguration['locale']` }
+            }
         },
         onToken: {
-            action: 'Logged In',
+            action: 'Signed In',
             table: { disable: true }
         }
     }
@@ -162,8 +217,8 @@ export const ButtonExample: Story = {
         if (clientId === '') {
             return (
                 <p>
-                    You must provide your own Google API client ID in the
-                    Storybook controls menu for this demo.
+                    You must provide a Google API client ID in the Storybook
+                    controls menu.
                 </p>
             );
         } else {
@@ -192,24 +247,6 @@ function Button(props: GsiButtonProps) {
     } else {
         return <GsiButton {...props} />;
     }
-}
-
-function LoadingFallback() {
-    return <strong>Loading Library&hellip;</strong>;
-}
-
-function ErrorFallback(status: ScriptErrorStatus) {
-    const { event } = status;
-
-    return (
-        <div style={{ width: 600 }}>
-            <strong>Error Loading Library</strong>
-            <p>
-                The following error occurred:
-                <pre><code>{JSON.stringify(event)}</code></pre>
-            </p>
-        </div>
-    );
 }
 
 function ButtonFallback() {
