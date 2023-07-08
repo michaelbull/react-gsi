@@ -35,3 +35,7 @@ th, td {
 h1 {
   margin-bottom: 1em;
 }
+
+pre {
+  margin: 0;
+}
