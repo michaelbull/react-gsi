@@ -4,8 +4,8 @@ import {
     StoryObj
 } from '@storybook/react';
 import {
+    GsiClient,
     IdTokenProvider,
-    SignInWithGoogle,
     useIdToken,
     useOneTap
 } from '../../src';
@@ -83,7 +83,7 @@ export const OneTapExample: Story = {
             );
         } else {
             return (
-                <SignInWithGoogle loading={LoadingFallback} error={ErrorFallback}>
+                <GsiClient loading={LoadingFallback} error={ErrorFallback}>
                     <IdTokenProvider configuration={configuration}>
                         <Button
                             show={show}
@@ -92,7 +92,7 @@ export const OneTapExample: Story = {
 
                         <TokenDetails />
                     </IdTokenProvider>
-                </SignInWithGoogle>
+                </GsiClient>
             );
         }
     }

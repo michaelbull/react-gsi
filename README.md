@@ -41,8 +41,8 @@ A client ID looks like the following example:
 ```tsx
 import {
     GsiButton,
+    GsiClient,
     IdTokenProvider,
-    SignInWithGoogle,
     useIdToken,
     useOneTap
 } from 'react-gsi';
@@ -59,11 +59,11 @@ const buttonConfiguration: GsiButtonConfiguration = {
 
 export function App() {
     return (
-        <SignInWithGoogle>
+        <GsiClient>
             <IdTokenProvider configuration={configuration}>
                 <Page/>
             </IdTokenProvider>
-        </SignInWithGoogle>
+        </GsiClient>
     )
 }
 
@@ -98,10 +98,10 @@ function Page() {
 ## Components
 
 <details>
-<summary><h3><code>&lt;SignInWithGoogle&gt;</code></h3></summary>
+<summary><h3><code>&lt;GsiClient&gt;</code></h3></summary>
 <p>
 
-The `<SignInWithGoogle>` component initializes the [JavaScript API][gsi-api].
+The `<GsiClient>` component initializes the [Sign-In JavaScript API][gsi-api].
 
 Fallbacks can be provided whilst the library is loading or if it has failed to load.
 
@@ -116,9 +116,9 @@ function ErrorFallback() {
 
 function App() {
     return (
-        <SignInWithGoogle loading={LoadingFallback} error={ErrorFallback}>
+        <GsiClient loading={LoadingFallback} error={ErrorFallback}>
             Library Loaded
-        </SignInWithGoogle>
+        </GsiClient>
     );
 }
 ```
@@ -143,11 +143,11 @@ const idConfiguration: IdConfiguration = {
 
 function App() {
     return (
-        <SignInWithGoogle>
+        <GsiClient>
             <IdTokenProvider configuration={idConfiguration}>
                 <Page />
             </IdTokenProvider>
-        </SignInWithGoogle>
+        </GsiClient>
     );
 }
 
@@ -169,9 +169,9 @@ The `<GsiButton>` will render the "Sign in with Google" button.
 ```tsx
 function App() {
     return (
-        <SignInWithGoogle>
+        <GsiClient>
             <GsiButton configuration={buttonConfiguration} />
-        </SignInWithGoogle>
+        </GsiClient>
     );
 }
 ```

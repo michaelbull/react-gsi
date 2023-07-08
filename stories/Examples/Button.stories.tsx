@@ -6,8 +6,8 @@ import {
 import {
     GsiButton,
     GsiButtonProps,
+    GsiClient,
     IdTokenProvider,
-    SignInWithGoogle,
     useIdToken
 } from '../../src';
 import { TokenDetails } from './TokenDetails';
@@ -223,7 +223,7 @@ export const ButtonExample: Story = {
             );
         } else {
             return (
-                <SignInWithGoogle loading={LoadingFallback} error={ErrorFallback}>
+                <GsiClient loading={LoadingFallback} error={ErrorFallback}>
                     <IdTokenProvider configuration={configuration}>
                         <Button
                             configuration={buttonConfiguration}
@@ -232,7 +232,7 @@ export const ButtonExample: Story = {
 
                         <TokenDetails />
                     </IdTokenProvider>
-                </SignInWithGoogle>
+                </GsiClient>
             );
         }
     }

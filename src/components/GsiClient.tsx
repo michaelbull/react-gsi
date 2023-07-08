@@ -8,12 +8,12 @@ import {
     ScriptLoadingStatus
 } from '../models';
 
-export interface SignInWithGoogleProps {
+export interface GsiClientProps {
     readonly loading?: (status: ScriptLoadingStatus) => ReactNode;
     readonly error?: (status: ScriptErrorStatus) => ReactNode;
 }
 
-export function SignInWithGoogle(props: PropsWithChildren<SignInWithGoogleProps>) {
+export function GsiClient(props: PropsWithChildren<GsiClientProps>) {
     const {
         loading,
         error,
