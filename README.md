@@ -29,8 +29,8 @@ npm install --save react-gsi
 
 ## Usage
 
-To enable Sign In With Google on your website, you first need to
-[set up your Google API client ID][gsi-overview].
+To enable Sign In With Google on your website, you first need to [set up your
+Google API client ID][gsi-overview].
 
 You must have a client ID to configure Sign In With Google and to verify ID
 tokens on your backend.
@@ -97,13 +97,17 @@ function Page() {
 
 ## Components
 
+### `<GsiClient>`
+
 <details>
-<summary><h3><code>&lt;GsiClient&gt;</code></h3></summary>
-<p>
+<summary><strong>Details</strong></summary>
 
-The `<GsiClient>` component initializes the [Sign-In JavaScript API][gsi-api].
+The `<GsiClient>` component loads the [Sign-In JavaScript API][gsi-api].
 
-Fallbacks can be provided whilst the library is loading or if it has failed to load.
+Fallbacks can be provided whilst the library is loading or if it has failed to
+load.
+
+Once loaded, the API will be accessible via `window.google.accounts.id`.
 
 ```tsx
 function LoadingFallback() {
@@ -122,19 +126,24 @@ function App() {
     );
 }
 ```
-</p>
 </details>
 
+---
+
+### `<IdTokenProvider>`
+
 <details>
-<summary><h3><code>&lt;IdTokenProvider&gt;</code></h3></summary>
-<p>
+<summary><strong>Details</strong></summary>
 
-The `<IdTokenProvider>` initializes the API with the supplied [`IdConfiguration`][IdConfiguration].
+The `<IdTokenProvider>` initializes the API with the supplied
+[`IdConfiguration`][gsi-IdConfiguration].
 
-When the API invokes the [`callback`][callback] to indicate a successful sign-in, the ID Token
-returned is stored and passed to the children of the `<IdTokenProvider>` via an `<IdTokenContext>`.
+When the API invokes the [`callback`][gsi-callback] to indicate a successful
+sign-in, the ID Token returned is stored and passed to the children of the
+`<IdTokenProvider>` via an `<IdTokenContext>`.
 
-Children may access the token in the current context by using the `useIdToken()` hook.
+Children may access the token in the current context by using the
+`useIdToken()` hook.
 
 ```tsx
 const idConfiguration: IdConfiguration = {
@@ -157,16 +166,24 @@ function Page() {
     ...
 }
 ```
-</p>
 </details>
 
+---
+
+### `<GsiButton>`
+
 <details>
-<summary><h3><code>&lt;GsiButton&gt;</code></h3></summary>
-<p>
+<summary><strong>Details</strong></summary>
 
 The `<GsiButton>` will render the "Sign in with Google" button.
 
 ```tsx
+const buttonConfiguration: GsiButtonConfiguration = {
+    type: 'standard',
+    theme: 'outline',
+    size: 'large'
+}
+
 function App() {
     return (
         <GsiClient>
@@ -178,18 +195,22 @@ function App() {
 
 ![A button that says 'Sign in with Google' with no personalized information.](https://developers.google.com/static/identity/gsi/web/images/standard-button-white.png)
 
-</p>
 </details>
+
+---
 
 ## Hooks
 
-<details>
-<summary><h3><code>useGsiClient()</code></h3></summary>
-<p>
+### `useGsiClient()`
 
-The `useGsiClient()` hook initializes the [JavaScript API][gsi-api].
+<details>
+<summary><strong>Details</strong></summary>
+
+The `useGsiClient()` hook loads the [Sign-In JavaScript API][gsi-api].
 
 The status of the script can be accessed via the return type.
+
+Once loaded, the API will be accessible via `window.google.accounts.id`.
 
 ```tsx
 function App() {
@@ -205,12 +226,14 @@ function App() {
     }
 }
 ```
-</p>
 </details>
 
+---
+
+### `useOneTap()`
+
 <details>
-<summary><h3><code>useOneTap()</code></h3></summary>
-<p>
+<summary><strong>Details</strong></summary>
 
 The `useOneTap()` hook controls the One Tap flow.
 
@@ -222,7 +245,7 @@ setting the `show` flag to `false`.
 ```tsx
 function App() {
     const { prompt, cancel } = useOneTap({
-        show: true // show on mount
+        show: false // don't show on mount
     });
 
     return (
@@ -236,8 +259,9 @@ function App() {
 
 ![Account Chooser page](https://developers.google.com/static/identity/gsi/web/images/one-tap-ac.png)
 
-</p>
 </details>
+
+---
 
 ## Contributing
 
@@ -246,12 +270,15 @@ Bug reports and pull requests are welcome on [GitHub][github].
 ## License
 
 This project is available under the terms of the ISC license. See the
-[`LICENSE`](LICENSE) file for the copyright information and licensing terms.
+[`LICENSE`][license] file for the copyright information and licensing terms.
 
 [npm]: https://www.npmjs.com/package/react-gsi
 [github]: https://github.com/michaelbull/react-gsi
+[license]: https://github.com/michaelbull/react-gsi/blob/master/LICENSE
+
 [storybook]: https://michaelbull.github.io/react-gsi/?path=/story/examples
+
 [gsi-overview]: https://developers.google.com/identity/gsi/web/guides/overview
 [gsi-api]: https://developers.google.com/identity/gsi/web/reference/js-reference
-[IdConfiguration]: https://developers.google.com/identity/gsi/web/reference/js-reference#IdConfiguration
-[callback]: https://developers.google.com/identity/gsi/web/reference/js-reference#callback
+[gsi-IdConfiguration]: https://developers.google.com/identity/gsi/web/reference/js-reference#IdConfiguration
+[gsi-callback]: https://developers.google.com/identity/gsi/web/reference/js-reference#callback
