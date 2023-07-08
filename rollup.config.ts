@@ -24,8 +24,6 @@ const srcOptions: RollupOptions = {
         terser()
     ],
     external: [
-        'clsx',
-        'google-auth-library',
         'react',
         'react/jsx-runtime'
     ]
