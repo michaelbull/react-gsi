@@ -1,8 +1,8 @@
 {
-  "name": "react-sign-in-with-google",
+  "name": "react-gsi",
   "version": "0.0.1",
   "description": "React Sign in with Google",
-  "homepage": "https://github.com/michaelbull/react-sign-in-with-google#readme",
+  "homepage": "https://github.com/michaelbull/react-gsi#readme",
   "type": "module",
   "license": "ISC",
   "main": "dist/index.cjs",
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/michaelbull/react-sign-in-with-google.git"
+    "url": "git+ssh://git@github.com/michaelbull/react-gsi.git"
   },
   "keywords": [
     "react",
@@ -50,9 +50,6 @@
     "build:storybook": "sb build",
     "test": "vitest run",
     "test:watch": "vitest"
-  },
-  "dependencies": {
-    "google-auth-library": "8.9.0"
   },
   "peerDependencies": {
     "react": ">= 17",
