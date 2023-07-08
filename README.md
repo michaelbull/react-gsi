@@ -30,7 +30,7 @@ npm install --save react-gsi @types/gsi
 ## Usage
 
 To enable _Sign In With Google_ on your website, you first need to [set up your
-Google API client ID][gsi-overview].
+Google API client ID][gsi-setup].
 
 You must have a client ID to configure _Sign In With Google_ and to verify ID
 tokens on your backend.
@@ -102,12 +102,13 @@ function Page() {
 <details>
 <summary><strong>Details</strong></summary>
 
-The `<GsiClient>` component loads the [Sign-In JavaScript API][gsi-api].
+The `<GsiClient>` component loads the [client library][gsi-library].
 
 Fallbacks can be provided whilst the library is loading or if it has failed to
 load.
 
-Once loaded, the API will be accessible via `window.google.accounts.id`.
+Once loaded, the [Sign In With Google JavaScript API][gsi-api] will be
+accessible via `google.accounts.id`.
 
 ```tsx
 function LoadingFallback() {
@@ -147,7 +148,8 @@ Children may access the token in the current context by using the
 
 ```tsx
 const idConfiguration: IdConfiguration = {
-    client_id: '1234567890-abc123def456.apps.googleusercontent.com'
+    client_id: '1234567890-abc123def456.apps.googleusercontent.com',
+    auto_select: true // automatically sign in, see: https://developers.google.com/identity/gsi/web/guides/automatic-sign-in-sign-out
 }
 
 function App() {
@@ -175,7 +177,7 @@ function Page() {
 <details>
 <summary><strong>Details</strong></summary>
 
-The `<GsiButton>` will render the _Sign in with Google_ button.
+The `<GsiButton>` will render the [Sign in with Google button][gsi-button].
 
 ```tsx
 const buttonConfiguration: GsiButtonConfiguration = {
@@ -206,11 +208,12 @@ function App() {
 <details>
 <summary><strong>Details</strong></summary>
 
-The `useGsiClient()` hook loads the [Sign-In JavaScript API][gsi-api].
+The `useGsiClient()` hook loads the [client library][gsi-library].
 
 The status of the script can be accessed via the return type.
 
-Once loaded, the API will be accessible via `window.google.accounts.id`.
+Once loaded, the [Sign In With Google JavaScript API][gsi-api] will be
+accessible via `google.accounts.id`.
 
 ```tsx
 function App() {
@@ -219,8 +222,10 @@ function App() {
     switch (status.type) {
         case 'loading':
             return <span>Loading...</span>;
+
         case 'loaded':
             return <Page />;
+
         case 'error':
             return <span>Error</span>;
     }
@@ -235,11 +240,11 @@ function App() {
 <details>
 <summary><strong>Details</strong></summary>
 
-The `useOneTap()` hook controls the One Tap flow.
+The `useOneTap()` hook controls the [One Tap][gsi-onetap] flow.
 
 The flow can begin by calling `prompt`, and can be stopped by calling `cancel.`
 
-By default, the flow will begin automatically on mount. This can be changed by
+By default, the prompt will show automatically on mount. This can be changed by
 setting the `show` flag to `false`.
 
 ```tsx
@@ -279,6 +284,10 @@ This project is available under the terms of the ISC license. See the
 [storybook]: https://michaelbull.github.io/react-gsi/?path=/story/examples
 
 [gsi-overview]: https://developers.google.com/identity/gsi/web/guides/overview
+[gsi-setup]: https://developers.google.com/identity/gsi/web/guides/get-google-api-clientid#get_your_google_api_client_id
+[gsi-library]: https://developers.google.com/identity/gsi/web/guides/client-library
 [gsi-api]: https://developers.google.com/identity/gsi/web/reference/js-reference
 [gsi-IdConfiguration]: https://developers.google.com/identity/gsi/web/reference/js-reference#IdConfiguration
 [gsi-callback]: https://developers.google.com/identity/gsi/web/reference/js-reference#callback
+[gsi-button]: https://developers.google.com/identity/gsi/web/guides/offerings#sign_in_with_google_button
+[gsi-onetap]: https://developers.google.com/identity/gsi/web/guides/offerings#one_tap
