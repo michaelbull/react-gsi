@@ -26,21 +26,23 @@ export function GsiButton(props: GsiButtonProps) {
     const [rendered, setRendered] = useState(false);
 
     function onRender() {
-        setRendered(false);
+        setRendered(true);
     }
 
     return (
-        <div ref={setRef}>
+        <>
             {!rendered && fallback}
 
-            {ref &&
-                <Inner
-                    parent={ref}
-                    configuration={configuration}
-                    onRender={onRender}
-                />
-            }
-        </div>
+            <div ref={setRef}>
+                {ref &&
+                    <Inner
+                        parent={ref}
+                        configuration={configuration}
+                        onRender={onRender}
+                    />
+                }
+            </div>
+        </>
     );
 }
 
