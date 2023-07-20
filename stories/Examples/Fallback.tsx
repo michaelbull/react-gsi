@@ -10,10 +10,8 @@ export function ErrorFallback(status: ScriptErrorStatus) {
     return (
         <div style={{ width: 600 }}>
             <strong>Error Loading Library</strong>
-            <p>
-                The following error occurred:
-                <pre><code>{JSON.stringify(event)}</code></pre>
-            </p>
+            <p>The following error occurred:</p>
+            <pre><code>{JSON.stringify(event)}</code></pre>
         </div>
     );
 }
