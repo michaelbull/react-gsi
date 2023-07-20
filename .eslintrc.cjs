@@ -1,14 +1,17 @@
 /**
- * @type {import('@types/eslint').Linter.BaseConfig}
+ * @type {import('@types/eslint').Linter.Config}
  */
 module.exports = {
+    root: true,
     env: {
         browser: true
     },
     extends: [
+        'eslint:recommended',
         'plugin:@typescript-eslint/recommended',
         'plugin:react/recommended',
-        'plugin:react/jsx-runtime'
+        'plugin:react/jsx-runtime',
+        'plugin:react-hooks/recommended'
     ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
@@ -20,12 +23,6 @@ module.exports = {
         'react',
         'react-hooks'
     ],
-    rules: {
-        'react/jsx-uses-vars': 'warn',
-        'react/jsx-uses-react': 'warn',
-        'react-hooks/rules-of-hooks': 'error',
-        'react-hooks/exhaustive-deps': 'error'
-    },
     settings: {
         react: {
             version: 'detect'
