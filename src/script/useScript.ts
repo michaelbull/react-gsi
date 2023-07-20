@@ -1,8 +1,7 @@
 import {
-    useMemo,
+    useEffect,
     useState
 } from 'react';
-import { useDomNode } from './useDomNode';
 import { ScriptStatus } from './ScriptStatus';
 
 export type ScriptCreateHandler = (script: HTMLScriptElement) => void;
@@ -16,19 +15,19 @@ export interface UseScriptReturn {
     readonly status: ScriptStatus;
 }
 
-const DEFAULT_STATUS: ScriptStatus = {
-    type: 'loading'
+const INITIAL_STATUS: ScriptStatus = {
+    type: 'idle'
 };
 
 export function useScript(props: UseScriptProps): UseScriptReturn {
     const {
-        parent = document.head,
+        parent: parentProp,
         onCreate
     } = props;
 
-    const [status, setStatus] = useState<ScriptStatus>(DEFAULT_STATUS);
+    const [status, setStatus] = useState<ScriptStatus>(INITIAL_STATUS);
 
-    const script = useMemo(() => {
+    useEffect(() => {
         const element = document.createElement('script');
 
         element.addEventListener('load', event => {
@@ -47,13 +46,15 @@ export function useScript(props: UseScriptProps): UseScriptReturn {
 
         onCreate?.(element);
 
-        return element;
-    }, [onCreate]);
+        const parent = parentProp ?? document.head;
+        parent.append(element);
 
-    useDomNode({
-        parent,
-        child: script
-    });
+        setStatus({ type: 'loading' });
+
+        return function cleanup() {
+            element.remove();
+        };
+    }, [onCreate, parentProp]);
 
     return {
         status

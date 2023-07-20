@@ -1,10 +1,19 @@
-import { ScriptErrorStatus } from '../../src';
+import {
+    ScriptErrorStatus,
+    ScriptFallback,
+    ScriptIdleStatus,
+    ScriptLoadingStatus
+} from '../../src';
 
-export function LoadingFallback() {
+export const IdleFallback: ScriptFallback<ScriptIdleStatus> = () => {
+    return <strong>Waiting For Library&hellip;</strong>;
+};
+
+export const LoadingFallback: ScriptFallback<ScriptLoadingStatus> = () => {
     return <strong>Loading Library&hellip;</strong>;
-}
+};
 
-export function ErrorFallback(status: ScriptErrorStatus) {
+export const ErrorFallback: ScriptFallback<ScriptErrorStatus> = (status) => {
     const { event } = status;
 
     return (
@@ -14,4 +23,4 @@ export function ErrorFallback(status: ScriptErrorStatus) {
             <pre><code>{JSON.stringify(event)}</code></pre>
         </div>
     );
-}
+};

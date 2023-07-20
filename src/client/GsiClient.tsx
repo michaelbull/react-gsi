@@ -4,17 +4,23 @@ import {
 } from 'react';
 import {
     ScriptErrorStatus,
+    ScriptFallback,
+    ScriptIdleStatus,
     ScriptLoadingStatus
 } from '../script';
 import { useGsiClient } from './useGsiClient';
 
 export interface GsiClientProps {
-    readonly loading?: (status: ScriptLoadingStatus) => ReactNode;
-    readonly error?: (status: ScriptErrorStatus) => ReactNode;
+    readonly fallback?: ReactNode;
+    readonly idle?: ScriptFallback<ScriptIdleStatus>;
+    readonly loading?: ScriptFallback<ScriptLoadingStatus>;
+    readonly error?: ScriptFallback<ScriptErrorStatus>;
 }
 
 export function GsiClient(props: PropsWithChildren<GsiClientProps>) {
     const {
+        fallback,
+        idle,
         loading,
         error,
         children
@@ -23,13 +29,16 @@ export function GsiClient(props: PropsWithChildren<GsiClientProps>) {
     const { status } = useGsiClient();
 
     switch (status.type) {
+        case 'idle':
+            return idle?.(status) ?? fallback;
+
         case 'loading':
-            return loading?.(status) ?? null;
+            return loading?.(status) ?? fallback;
 
         case 'loaded':
             return children;
 
         case 'error':
-            return error?.(status) ?? null;
+            return error?.(status) ?? fallback;
     }
 }

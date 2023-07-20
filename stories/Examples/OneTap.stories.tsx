@@ -9,10 +9,6 @@ import {
     useOneTap
 } from '../../src';
 import { TokenDetails } from './TokenDetails';
-import {
-    ErrorFallback,
-    LoadingFallback
-} from './Fallback';
 
 interface StoryProps {
     readonly clientId: IdConfiguration['client_id'];
@@ -82,7 +78,7 @@ export const OneTapExample: Story = {
             );
         } else {
             return (
-                <GsiClient loading={LoadingFallback} error={ErrorFallback}>
+                <GsiClient fallback={<div>Loading&hellip;</div>}>
                     <IdTokenProvider configuration={configuration}>
                         <Button
                             show={show}

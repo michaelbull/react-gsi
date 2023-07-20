@@ -12,6 +12,7 @@ import {
 import { TokenDetails } from './TokenDetails';
 import {
     ErrorFallback,
+    IdleFallback,
     LoadingFallback
 } from './Fallback';
 
@@ -222,7 +223,7 @@ export const ButtonExample: Story = {
             );
         } else {
             return (
-                <GsiClient loading={LoadingFallback} error={ErrorFallback}>
+                <GsiClient idle={IdleFallback} loading={LoadingFallback} error={ErrorFallback}>
                     <IdTokenProvider configuration={configuration}>
                         <Button
                             configuration={buttonConfiguration}

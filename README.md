@@ -60,7 +60,7 @@ const buttonConfiguration: GsiButtonConfiguration = {
 
 export function App() {
     return (
-        <GsiClient>
+        <GsiClient fallback={<LoadingSpinner />}>
             <IdTokenProvider configuration={configuration}>
                 <Page/>
             </IdTokenProvider>
@@ -220,6 +220,9 @@ function App() {
     const { status } = useGsiClient();
 
     switch (status.type) {
+        case 'idle':
+            return <span>Idle...</span>;
+
         case 'loading':
             return <span>Loading...</span>;
 
