@@ -4,7 +4,7 @@ import {
     useEffect,
     useState
 } from 'react';
-import { IdTokenContext } from '../hooks';
+import { IdTokenContext } from './useIdToken';
 
 export interface IdTokenProviderProps {
     readonly configuration: IdConfiguration;

@@ -5,7 +5,7 @@ import {
 import {
     useRenderButton,
     UseRenderButtonProps
-} from '../hooks';
+} from './useRenderButton';
 
 export const GSI_BUTTON_DEFAULT_CONFIGURATION: GsiButtonConfiguration = {
     type: 'standard'

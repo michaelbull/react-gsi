@@ -2,11 +2,11 @@ import {
     PropsWithChildren,
     ReactNode
 } from 'react';
-import { useGsiClient } from '../hooks';
 import {
     ScriptErrorStatus,
     ScriptLoadingStatus
-} from '../models';
+} from '../script';
+import { useGsiClient } from './useGsiClient';
 
 export interface GsiClientProps {
     readonly loading?: (status: ScriptLoadingStatus) => ReactNode;

@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useScript } from './useScript';
+import { useScript } from '../script/useScript';
 
 export const GOOGLE_GSI_CLIENT_URL = 'https://accounts.google.com/gsi/client';
 

@@ -2,12 +2,11 @@ import {
     useMemo,
     useState
 } from 'react';
-import { ScriptStatus } from '../models';
 import { useDomNode } from './useDomNode';
+import { ScriptStatus } from './ScriptStatus';
 
 export type ScriptCreateHandler = (script: HTMLScriptElement) => void;
 
-/** @internal */
 export interface UseScriptProps {
     readonly parent?: ParentNode;
     readonly onCreate?: ScriptCreateHandler;
@@ -21,7 +20,6 @@ const DEFAULT_STATUS: ScriptStatus = {
     type: 'loading'
 };
 
-/** @internal */
 export function useScript(props: UseScriptProps): UseScriptReturn {
     const {
         parent = document.head,
