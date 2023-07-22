@@ -30,15 +30,15 @@ export function GsiClient(props: PropsWithChildren<GsiClientProps>) {
 
     switch (status.type) {
         case 'idle':
-            return idle?.(status) ?? fallback;
+            return <>{idle?.(status) ?? fallback}</>;
 
         case 'loading':
-            return loading?.(status) ?? fallback;
+            return <>{loading?.(status) ?? fallback}</>;
 
         case 'loaded':
-            return children;
+            return <>{children}</>;
 
         case 'error':
-            return error?.(status) ?? fallback;
+            return <>{error?.(status) ?? fallback}</>;
     }
 }
