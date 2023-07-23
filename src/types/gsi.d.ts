@@ -1,7 +1,5 @@
-/* eslint @typescript-eslint/no-unused-vars: "off" */
+declare module google.accounts.id {
+    export function renderButton(parent: HTMLElement, options: GsiButtonConfiguration): void;
 
-declare namespace google.accounts.id {
-    function renderButton(parent: HTMLElement, options: GsiButtonConfiguration): void;
-
-    function prompt(listener?: MomentListener): void;
+    export function prompt(listener?: MomentListener): void;
 }
